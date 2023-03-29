@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void set_image_background();
 private slots:
     void onResult(QNetworkReply *reply);
     void on_pushButton_clicked();

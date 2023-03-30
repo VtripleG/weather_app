@@ -39,6 +39,7 @@ text-align: center;
 color:rgb(255,255,255);
 border-style: outset;
 border-radius: 20;
+vertycalscrollbar-weght: 0;
 }
 
 QPushButton#pushButton{
@@ -81,6 +82,12 @@ QPushButton#pushButton:pressed {
       <width>390</width>
       <height>440</height>
      </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>

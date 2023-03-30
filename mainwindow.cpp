@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QPalette>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,7 +16,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::set_image_background()
 {
-//    QPixmap bkgnd("/home/sergey/qt_projects/wather_test/weather_app/rain.png");
     QPixmap bkgnd("../weather_app/rain.png");
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
     QPalette p = palette();
@@ -43,25 +41,24 @@ void MainWindow::onResult(QNetworkReply *reply)
     ui->textBrowser->clear();
     ui->textBrowser->setAlignment(Qt::AlignCenter);
 
+
     //city name
     ui->textBrowser->setCurrentFont(h_font);
+    ui->textBrowser->insertPlainText(QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm:ss") + "\n");
     ui->textBrowser->insertPlainText("City: " + json_object["name"].toString() + "\n");
+
     //weather
-//    QJsonArray weather_array = json_object["weather"].toArray();
-//    QVariantList qv_list = weather_array.toVariantList();
-//    QJsonObject weather_object;
-//    for(const auto &item: qv_list)
-//        weather_object = item["main"].toObject();
-//    QJsonDocument weather_doc(weather_array);
-//    qDebug() << weather_doc;
-//    QJsonObject weather_object = weather_doc.object();
-//    qDebug() << weather_object["main"];
-//    ui->textBrowser->insertPlainText("Weather: " +  + "\n\n");
-    //wind speed
 
 
-    QVariantMap v_map = json_object["main"].toObject().toVariantMap();
+    QVariantMap v_map;
     //tempereture now
+    v_map = json_object["main"].toObject().toVariantMap();
+    int buff;
+    buff = floor(v_map["temp"].toDouble());
+    QJsonObject *buff_object = new QJsonObject;
+    buff_object->insert("temp",buff);
+    v_map = buff_object->toVariantMap();
+
      ui->textBrowser->setCurrentFont(b_font);
      ui->textBrowser->insertPlainText(v_map["temp"].toString());
      ui->textBrowser->setCurrentFont(l_font);
@@ -69,6 +66,12 @@ void MainWindow::onResult(QNetworkReply *reply)
      ui->textBrowser->setCurrentFont(h_font);
      ui->textBrowser->insertPlainText("Tempereture now\n\n" );
      //feels like tempereture
+     v_map = json_object["main"].toObject().toVariantMap();
+
+     buff = floor(v_map["feel_like"].toDouble());
+     buff_object->insert("feels_like",buff);
+     v_map = buff_object->toVariantMap();
+
      ui->textBrowser->setCurrentFont(b_font);
      ui->textBrowser->insertPlainText(v_map["feels_like"].toString());
      ui->textBrowser->setCurrentFont(l_font);
@@ -79,6 +82,11 @@ void MainWindow::onResult(QNetworkReply *reply)
 
     //wind speed
     v_map = json_object["wind"].toObject().toVariantMap();
+
+    buff = floor(v_map["speed"].toDouble());
+    buff_object->insert("speed",buff);
+    v_map = buff_object->toVariantMap();
+
     ui->textBrowser->setCurrentFont(b_font);
     ui->textBrowser->insertPlainText(v_map["speed"].toString());
     ui->textBrowser->setCurrentFont(l_font);
@@ -87,10 +95,14 @@ void MainWindow::onResult(QNetworkReply *reply)
     ui->textBrowser->insertPlainText("Wind speed\n\n" );
     //tempereture bloc
 
-    v_map = json_object["main"].toObject().toVariantMap();
-
 
     //min tempereture
+    v_map = json_object["main"].toObject().toVariantMap();
+
+    buff = floor(v_map["temp_min"].toDouble());
+    buff_object->insert("temp_min",buff);
+    v_map = buff_object->toVariantMap();
+
     ui->textBrowser->setCurrentFont(b_font);
     ui->textBrowser->insertPlainText(v_map["temp_min"].toString());
     ui->textBrowser->setCurrentFont(l_font);
@@ -99,12 +111,32 @@ void MainWindow::onResult(QNetworkReply *reply)
     ui->textBrowser->insertPlainText("Minimum day tempereture\n\n" );
 
     //max tempereture
+    v_map = json_object["main"].toObject().toVariantMap();
+
+    buff = floor(v_map["temp_max"].toDouble());
+    buff_object->insert("temp_max",buff);
+    v_map = buff_object->toVariantMap();
+
     ui->textBrowser->setCurrentFont(b_font);
     ui->textBrowser->insertPlainText(v_map["temp_max"].toString());
     ui->textBrowser->setCurrentFont(l_font);
     ui->textBrowser->insertPlainText(" ॰C\n");
     ui->textBrowser->setCurrentFont(h_font);
     ui->textBrowser->insertPlainText("Maximum day tempereture\n\n" );
+
+    //pressure
+    v_map = json_object["main"].toObject().toVariantMap();
+
+    buff = floor(v_map["pressure"].toDouble()/1.33);
+    buff_object->insert("pressure",buff);
+    v_map = buff_object->toVariantMap();
+
+    ui->textBrowser->setCurrentFont(b_font);
+    ui->textBrowser->insertPlainText(v_map["pressure"].toString());
+    ui->textBrowser->setCurrentFont(l_font);
+    ui->textBrowser->insertPlainText(" mm\n");
+    ui->textBrowser->setCurrentFont(h_font);
+    ui->textBrowser->insertPlainText("ATM pressure\n\n" );
 
     set_image_background();
 

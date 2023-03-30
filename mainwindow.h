@@ -11,6 +11,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVariantList>
+#include <cmath>
+#include <QPalette>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

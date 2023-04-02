@@ -26,13 +26,32 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void set_image_background();
+    void set_image_background(QString bkgr);
 private slots:
     void onResult(QNetworkReply *reply);
     void on_pushButton_clicked();
 
 private:
+    QFont b_font;
+    QFont l_font;
+    QFont h_font;
+    int buff;
+    QJsonObject *buff_object = new QJsonObject;
+    QVariantMap v_map;
     Ui::MainWindow *ui;
     QNetworkAccessManager *networkManger;
+    void write_city_name(QJsonObject json_object);
+    void write_weather (QJsonObject json_object);
+    void write_n_tempereture (QJsonObject json_object);
+    void write_fl_tempereture (QJsonObject json_object);
+    void write_wind_speed (QJsonObject json_object);
+    void write_min_tempereture (QJsonObject json_object);
+    void write_max_tempereture (QJsonObject json_object);
+    void write_pressure (QJsonObject json_object);
+
+
+
+
+
 };
 #endif // MAINWINDOW_H

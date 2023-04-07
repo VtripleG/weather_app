@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(selectcity, &SelectCity::new_city, this, &MainWindow::new_city);
+    URL_request();
+
+
 }
 
 MainWindow::~MainWindow()
@@ -52,13 +56,8 @@ void MainWindow::onResult(QNetworkReply *reply)
 
 void MainWindow::on_pushButton_clicked()
 {
-    networkManger = new QNetworkAccessManager();
-    connect(networkManger, &QNetworkAccessManager::finished, this, &MainWindow::onResult);
-    networkManger->get(QNetworkRequest(QUrl("https://api.openweathermap.org/data/2.5/weather?q=Murmansk&units=metric&appid=918897e4f3f23239a1b447c8dd3be48a")));
-
+    URL_request();
 }
-
-
 
 void MainWindow::write_city_name(QJsonObject json_object)
 {
@@ -172,6 +171,15 @@ void MainWindow::write_pressure(QJsonObject json_object)
     ui->textBrowser->insertPlainText("ATM pressure\n\n" );
 }
 
+void MainWindow::URL_request()
+{
+    url_path = f_p_url + def_city + t_p_url;
+    networkManger = new QNetworkAccessManager();
+    connect(networkManger, &QNetworkAccessManager::finished, this, &MainWindow::onResult);
+    networkManger->get(QNetworkRequest(QUrl(url_path)));
+
+}
+
 void MainWindow::set_image_background(QString bkgr)
 {
     QString string;
@@ -189,5 +197,16 @@ void MainWindow::set_image_background(QString bkgr)
     QPalette p = palette();
     p.setBrush(QPalette::Window, bkgrnd);
     ui->centralwidget->setPalette(p);
+}
+
+void MainWindow::on_select_Button_clicked()
+{
+     selectcity->show();
+}
+
+void MainWindow::new_city(QString city_name)
+{
+    def_city = city_name;
+    URL_request();
 }
 

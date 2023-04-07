@@ -32,8 +32,7 @@
    <bool>true</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-QTextBrowser#textBrowser{
+   <string notr="true">QTextBrowser#textBrowser{
 background:rgba(0, 0, 0, 0.5);
 text-align: center;
 color:rgb(255,255,255);
@@ -49,10 +48,24 @@ border-style: outset;
 border-radius: 10;
 border-color: rgb(94, 92, 100);
 }
+
 QPushButton#pushButton:pressed {
      background:rgba(0, 0, 0, 0.8);
      border-style: inset;
- }</string>
+ }
+
+QPushButton#select_Button{
+background:rgba(0, 0, 0, 0);
+border-style: outset;
+font: 700 11pt &quot;Ubuntu&quot;;
+
+}
+QPushButton#select_Button:pressed{
+color:rgb{1, 1, 1};
+     border-style: inset;
+
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="autoFillBackground">
@@ -97,6 +110,19 @@ QPushButton#pushButton:pressed {
     </property>
     <property name="textInteractionFlags">
      <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="select_Button">
+    <property name="geometry">
+     <rect>
+      <x>25</x>
+      <y>10</y>
+      <width>390</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>select city</string>
     </property>
    </widget>
   </widget>

@@ -1,5 +1,6 @@
 #include "SelectCity.h"
 #include "ui_SelectCity.h"
+#include <QDebug>
 
 SelectCity::SelectCity(QWidget *parent) :
     QWidget(parent),
@@ -7,6 +8,13 @@ SelectCity::SelectCity(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+
+void SelectCity::keyPressEvent(QKeyEvent *event)
+{
+    if((ui->lineEdit->hasFocus()==true) && (event->key() == Qt::Key_Return))
+        on_pushButton_clicked();
+}
+
 
 SelectCity::~SelectCity()
 {

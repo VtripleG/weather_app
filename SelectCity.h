@@ -1,6 +1,6 @@
 #ifndef SELECTCITY_H
 #define SELECTCITY_H
-
+#include <QKeyEvent>
 #include <QWidget>
 
 namespace Ui {
@@ -13,6 +13,8 @@ class SelectCity : public QWidget
 
 public:
     explicit SelectCity(QWidget *parent = nullptr);
+    void keyPressEvent (QKeyEvent* event);
+
     ~SelectCity();
 
 private:

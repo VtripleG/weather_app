@@ -39,6 +39,9 @@ QPushButton#pushButton:pressed {
    <property name="text">
     <string>Enter</string>
    </property>
+   <property name="default">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
